@@ -6,6 +6,11 @@ package org.wsk.MC.MCServerManger;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
@@ -13,12 +18,21 @@ import net.miginfocom.swing.*;
  * @author wsk
  */
 public class MainForm extends JFrame {
+    public static Data data = new Data();
+    Process p;
+    Get get;
     public MainForm() {
         initComponents();
     }
 
     private void startMouseClicked(MouseEvent e) {
-        // TODO add your code here
+        try {
+            p = Runtime.getRuntime().exec(data.dir + " -Xmx" + data.max + "m" + " -Xms" + data.min + "m" + " -jar" + data.server + " " , null , null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        get = new Get(this , new BufferedReader(new InputStreamReader(p.getInputStream(), Charset.forName("GBK"))));
+
     }
 
     private void stopMouseClicked(MouseEvent e) {
@@ -30,7 +44,11 @@ public class MainForm extends JFrame {
     }
 
     private void saveMouseClicked(MouseEvent e) {
-        // TODO add your code here
+        data.server = serverdir.getText();
+        data.dir = javadir.getText();
+        data.max = new Integer(maxm.getText());
+        data.min = new Integer(minm.getText());
+        new CommonDialog(this , "设置成功！").setVisible(true);
     }
 
     private void initComponents() {
@@ -63,6 +81,7 @@ public class MainForm extends JFrame {
 
             //---- consoletext ----
             consoletext.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
+            consoletext.setEditable(false);
             scrollPane1.setViewportView(consoletext);
         }
 
@@ -88,8 +107,8 @@ public class MainForm extends JFrame {
 
         //---- stop ----
         stop.setText("\u5173\u670d");
-        stop.setEnabled(false);
         stop.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
+        stop.setEnabled(false);
         stop.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -103,7 +122,6 @@ public class MainForm extends JFrame {
 
         //---- start ----
         start.setText("\u5f00\u670d");
-        start.setEnabled(false);
         start.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
         start.addMouseListener(new MouseAdapter() {
             @Override
@@ -114,7 +132,6 @@ public class MainForm extends JFrame {
 
         //---- forcestop ----
         forcestop.setText("\u5f3a\u5236\u5173\u670d\uff08\u614e\u7528\uff09");
-        forcestop.setEnabled(false);
         forcestop.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
         forcestop.addMouseListener(new MouseAdapter() {
             @Override
@@ -125,7 +142,6 @@ public class MainForm extends JFrame {
 
         //---- save ----
         save.setText("\u4fdd\u5b58\u8bbe\u7f6e");
-        save.setEnabled(false);
         save.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 12));
         save.addMouseListener(new MouseAdapter() {
             @Override
@@ -139,47 +155,50 @@ public class MainForm extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(25, 25, 25)
+                    .addGap(13, 13, 13)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(javadir, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label3)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(serverdir, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(label1)
-                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 798, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label6)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(minm, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label5)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(maxm, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)))
+                    .addGap(21, 21, 21)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(stop, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(save, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(start, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(forcestop)))
+                    .addContainerGap(35, Short.MAX_VALUE))
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup()
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label2)
-                                    .addGap(566, 566, 566))
-                                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(javadir, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addComponent(label3)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(serverdir, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addComponent(label5)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(maxm, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                            .addComponent(label6)
-                                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(minm, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(27, 27, 27)))
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(label7)
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(start, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(forcestop, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(stop, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(save, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))))
-                    .addContainerGap(26, Short.MAX_VALUE))
+                                .addComponent(label1)
+                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 816, GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 17, Short.MAX_VALUE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(label2)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 553, Short.MAX_VALUE)
+                            .addComponent(label7)
+                            .addGap(184, 184, 184))))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -213,12 +232,13 @@ public class MainForm extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - wsk
     private JScrollPane scrollPane1;
-    private JTextArea consoletext;
+    public JTextArea consoletext;
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;

@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:25:p, par l {comp label1:::p::p, comp scrollPane1:::p:798:p, seq l {par l {seq l {comp label2:::p::p, space :p:566:p}, seq t {par t {seq t {comp label4:::p:73:p, space :::p, comp javadir:::p:303:p}, seq t {comp label3:::p::p, space :::p, comp serverdir:::p:304:p}}, space u:::p, par l:::p {seq l {comp label5:::p::p, space :::p, comp maxm:::p:80:p}, seq l {comp label6:::p::p, space :::p, comp minm:::p:80:p}}, space :p:27:p}}, par l:::p {comp label7::l:p::p, seq l {comp start:::p:63:p, space s:::p, comp forcestop:::p:103:p}, seq l {comp stop:::p:63:p, space s:::p, comp quit:::p:103:p}}}}, space ::26:x}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp label1:::p::p, space :::p, comp scrollPane1:::p:419:p, space :p:12:p, par b {comp label2::b:p::p, comp label7::b:p::p}, space :::p, par b {comp label3::b:p::p, comp serverdir::b:p::p, comp label5::b:p::p, comp maxm::b:p::p, comp start::b:p::p, comp forcestop::b:p::p}, space :::p, par b {comp label4::b:p::p, comp javadir::b:p::p, comp label6::b:p::p, comp minm::b:p::p, comp stop::b:p::p, comp quit::b:p::p}, space ::8:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:13:p, par t {seq t {comp label4:::p:73:p, space :::p, comp javadir:::p:303:p}, seq t {comp label3:::p::p, space :::p, comp serverdir:::p:304:p}}, space :::p, par l {seq {comp label6:::p::p, space :::p, comp minm:::p:80:p}, seq {comp label5:::p::p, space :::p, comp maxm:::p:80:p}}, space :21:21:p, par l:::p {seq l {comp stop:::p:63:p, space :::p, comp save:::::x}, seq l {comp start:::p:63:p, space :::p, comp forcestop:::p::p}}, space ::35:x}, seq l {space :p:16:p, par l {seq {par l {comp label1:::p::p, comp scrollPane1:::p:816:p}, space :0:17:x}, seq l {comp label2:::p::p, space ::553:x, comp label7:::p::p, space :p:184:p}}}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp label1:::p::p, space :::p, comp scrollPane1:::p:419:p, space :p:12:p, par b {comp label2::b:p::p, comp label7::b:p::p}, space :::p, par b {comp label3::b:p::p, comp serverdir::b:p::p, comp label5::b:p::p, comp maxm::b:p::p, comp start::b:p::p, comp forcestop::b:p::p}, space :::p, par b {comp label4::b:p::p, comp javadir::b:p::p, comp label6::b:p::p, comp minm::b:p::p, comp stop::b:p::p, comp save::b:p::p}, space :::x}}"
 		} ) {
 			name: "this"
 			"title": "MCServerManger by WSK"
@@ -14,6 +14,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JTextArea" ) {
 					name: "consoletext"
 					"font": new java.awt.Font( "微软雅黑", 0, 12 )
+					"editable": false
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -57,8 +58,9 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "stop"
 				"text": "关服"
-				"enabled": false
 				"font": &Font1 new java.awt.Font( "微软雅黑", 0, 12 )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "stopMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label7"
@@ -68,24 +70,24 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "start"
 				"text": "开服"
-				"enabled": false
 				"font": #Font1
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "startMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "forcestop"
 				"text": "强制关服（慎用）"
-				"enabled": false
 				"font": #Font1
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "forcestopMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "quit"
-				"text": "退出程序（慎用）"
-				"enabled": false
+				name: "save"
+				"text": "保存设置"
 				"font": #Font1
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "saveMouseClicked", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 865, 605 )
+			"size": new java.awt.Dimension( 865, 600 )
 		} )
 	}
 }
