@@ -1,0 +1,91 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:25:p, par l {comp label1:::p::p, comp scrollPane1:::p:798:p, seq l {par l {seq l {comp label2:::p::p, space :p:566:p}, seq t {par t {seq t {comp label4:::p:73:p, space :::p, comp javadir:::p:303:p}, seq t {comp label3:::p::p, space :::p, comp serverdir:::p:304:p}}, space u:::p, par l:::p {seq l {comp label5:::p::p, space :::p, comp maxm:::p:80:p}, seq l {comp label6:::p::p, space :::p, comp minm:::p:80:p}}, space :p:27:p}}, par l:::p {comp label7::l:p::p, seq l {comp start:::p:63:p, space s:::p, comp forcestop:::p:103:p}, seq l {comp stop:::p:63:p, space s:::p, comp quit:::p:103:p}}}}, space ::26:x}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp label1:::p::p, space :::p, comp scrollPane1:::p:419:p, space :p:12:p, par b {comp label2::b:p::p, comp label7::b:p::p}, space :::p, par b {comp label3::b:p::p, comp serverdir::b:p::p, comp label5::b:p::p, comp maxm::b:p::p, comp start::b:p::p, comp forcestop::b:p::p}, space :::p, par b {comp label4::b:p::p, comp javadir::b:p::p, comp label6::b:p::p, comp minm::b:p::p, comp stop::b:p::p, comp quit::b:p::p}, space ::8:x}}"
+		} ) {
+			name: "this"
+			"title": "MCServerManger by WSK"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "consoletext"
+					"font": new java.awt.Font( "微软雅黑", 0, 12 )
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "控制台："
+				"font": new java.awt.Font( "微软雅黑", 1, 16 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "设置："
+				"font": &Font0 new java.awt.Font( "微软雅黑", 1, 16 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "服务端路径："
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Java路径："
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "最大内存（MiB）："
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "最小内存（MiB）："
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "serverdir"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "javadir"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "maxm"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "minm"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "stop"
+				"text": "关服"
+				"enabled": false
+				"font": &Font1 new java.awt.Font( "微软雅黑", 0, 12 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": "操作："
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "start"
+				"text": "开服"
+				"enabled": false
+				"font": #Font1
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "forcestop"
+				"text": "强制关服（慎用）"
+				"enabled": false
+				"font": #Font1
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "quit"
+				"text": "退出程序（慎用）"
+				"enabled": false
+				"font": #Font1
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 865, 605 )
+		} )
+	}
+}
